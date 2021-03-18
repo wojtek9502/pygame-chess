@@ -11,6 +11,8 @@ class Drawable:
         self.color = color
         self.surface = pygame.Surface([width, height], pygame.SRCALPHA, 32).convert_alpha()
         self.rect = self.surface.get_rect(x=x, y=y)
+        self.x = x
+        self.y = y
 
     def draw_on(self, surface):
         surface.blit(self.surface, self.rect)

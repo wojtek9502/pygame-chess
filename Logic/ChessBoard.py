@@ -1,22 +1,25 @@
 from utils.consts import *
 from Logic.ChessBoardField import ChessBoardField
 from Logic.Piece import Piece
+from utils.piecesTypesStartPosition import PIECES_START_POSITIONS
+from utils.PlayersEnum import PlayersEnum
 
 
 class ChessBoard:
-    def __init__(self, board_start_x, board_start_y, ):
-        self.boardFieldsMatrix = self.generateChessBoardFields(board_start_x, board_start_y)
+    def __init__(self, board_start_x, board_start_y):
+        self.boardFieldsMatrix = self.setBoard(board_start_x, board_start_y)
+        self.setPiecesOnStartPosition()
 
-    def generateChessBoardFields(self, x, y):
+    def setBoard(self, x, y):
         boardFieldsMatrix = []
         start_x = x
         start_y = y
         for col_index in range(NUMBER_OF_COLS_ON_CHESS_BOARD):
             boardFieldsMatrix.append([])
             for row_index in range(NUMBER_OF_ROWS_ON_CHESS_BOARD):
-                fieldColor = self.getChessBoardFieldColor(FIRST_FIELD_COLOR, SECOND_FIELD_COLOR, col_index, row_index)
-                boardField = ChessBoardField(CHESS_FIELD_LENGHT, CHESS_FIELD_LENGHT, start_x, start_y, row_index,
-                                             col_index, fieldColor)
+                fieldColor = self.getChessBoardFieldColor(col_index, row_index)
+                boardField = ChessBoardField(CHESS_FIELD_LENGHT, CHESS_FIELD_LENGHT, start_x, start_y,
+                                             row_index=row_index, col_index=col_index, color=fieldColor)
                 start_x += CHESS_FIELD_LENGHT
                 if start_x >= CHESS_FIELD_LENGHT * NUMBER_OF_ROWS_ON_CHESS_BOARD:
                     start_x = x
@@ -24,17 +27,30 @@ class ChessBoard:
                 boardFieldsMatrix[col_index].append(boardField)
         return boardFieldsMatrix
 
-    def getChessBoardFieldColor(self, first_color, second_color, col_index, row_index):
+    def getPiecesOnBoardList(self):
+        _list = list()
+        for chess_board_row in self.boardFieldsMatrix:
+            for chessBoardField in chess_board_row:
+                piece = chessBoardField.piece
+                if piece:
+                    _list.append(chessBoardField.piece)
+                    piece.drawPiece()
+        return _list
+
+    def setPiecesOnStartPosition(self):
+        for row in self.boardFieldsMatrix:
+            for field in row:
+                if field.col_index < 2 or field.col_index > 5:
+                    piece = Piece.createPieceObject(field)
+                    field.piece = piece
+
+
+
+    def getChessBoardFieldColor(self, col_index, row_index):
         if col_index & 1 == 0:
-            return first_color if row_index & 1 == 0 else second_color
+            return FIRST_FIELD_COLOR if row_index & 1 == 0 else SECOND_FIELD_COLOR
 
-        return second_color if row_index & 1 == 0 else first_color
+        return SECOND_FIELD_COLOR if row_index & 1 == 0 else FIRST_FIELD_COLOR
 
-    def setPieces(self):
-        PiecesObjectsList = []
-        for col in self.boardFieldsMatrix:
-            for field in col:
-                if field.row_index < 2 or field.row_index > 5:
-                    piece = Piece(field)
-                    PiecesObjectsList.append(piece)
-        return PiecesObjectsList
+    def setPiecesTypes(self):
+        pass

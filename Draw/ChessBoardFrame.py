@@ -20,19 +20,19 @@ class ChessBoardFrame(Drawable):
         # draw baord marks
         vertical_marks = "ABCDEFGH"
         horizontal_marks = reversed("12345678")
-        font = pygame.font.Font(None, FONT_SIZE)
+        font = pygame.font.Font(None, CHESS_MARKS_FONT_SIZE)
 
         # write vertical marks
         x = CHESS_BOARD_WIDTH_PADDING + (CHESS_FIELD_LENGHT/2)
         char_x_step = CHESS_FIELD_LENGHT - 1
         for vertical_char in vertical_marks :
-            text = font.render(vertical_char, True, FONT_COLOR)
+            text = font.render(vertical_char, True, CHESS_MARKS_COLOR)
 
-            # write on top of the window
+            # write on top of the board
             text_rect = text.get_rect(x=x, y=10)
             self.surface.blit(text, text_rect)
 
-            #write on bottom of the window
+            #write on bottom of the board
             text_rect = text.get_rect(x=x, y=height-20)
             self.surface.blit(text, text_rect)
             x += char_x_step
@@ -41,13 +41,13 @@ class ChessBoardFrame(Drawable):
         y = CHESS_BOARD_HEIGHT_PADDING + (CHESS_FIELD_LENGHT / 2)
         char_y_step = CHESS_FIELD_LENGHT - 1
         for horizontal_char in horizontal_marks:
-            text = font.render(horizontal_char, True, FONT_COLOR)
+            text = font.render(horizontal_char, True, CHESS_MARKS_COLOR)
 
-            #write on the left of the window
+            #write on the left of the board
             text_rect = text.get_rect(x=10, y=y)
             self.surface.blit(text, text_rect)
 
-            #write on the right of the window
+            #write on the right of the board
             text_rect = text.get_rect(x=width-20, y=y)
             self.surface.blit(text, text_rect)
 

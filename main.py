@@ -30,8 +30,7 @@ class GameWindow:
 
         :param args: lista obiektów do narysowania
         """
-        background = BOARD_BACKGROUND_COLOR
-        self.surface.fill(background)
+        self.surface.fill(BOARD_BACKGROUND_COLOR)
         for drawable in args:
             drawable.draw_on(self.surface)
 
@@ -48,6 +47,7 @@ class ChessGame():
 
     def __init__(self, width, height):
         pygame.init()
+        pygame.font.init()
         self.gameWindow = GameWindow(width, height)
         # zegar którego użyjemy do kontrolowania szybkości rysowania
         # kolejnych klatek gry
@@ -57,7 +57,6 @@ class ChessGame():
         board_start_x = CHESS_BOARD_WIDTH_PADDING
         board_start_y = CHESS_BOARD_HEIGHT_PADDING
         self.chessBoard = ChessBoard(board_start_x=board_start_x, board_start_y=board_start_y)
-        self.PiecesObjectsList = self.chessBoard.setPieces()
 
 
 
@@ -72,9 +71,11 @@ class ChessGame():
                 # split 2d list (boardFieldsMatrix) to 1d list and unpack it with *
                 # every list elem is chess board field
                 *list(itertools.chain.from_iterable(self.chessBoard.boardFieldsMatrix)),
-                *self.PiecesObjectsList
+                *self.chessBoard.getPiecesOnBoardList(),
+
             )
             self.fps_clock.tick(30)
+
 
     def handle_events(self):
         """
