@@ -4,6 +4,7 @@ from Draw.Drawable import Drawable
 from Logic import ChessBoardField
 
 class Piece(Drawable):
+
     def __init__(self, chessBoardField: ChessBoardField):
         super(Piece, self).__init__(30, 30, chessBoardField.start_x + 15, chessBoardField.start_y + 15)
         self.exists = True
