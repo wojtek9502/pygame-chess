@@ -12,3 +12,6 @@ pip install -r requirements.txt
 ```shell
 python main.py
 ```
+
+### Screenshoot
+![game_screen](game.PNG)
