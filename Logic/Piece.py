@@ -18,6 +18,11 @@ class Piece(Drawable):
         self.pieceSymbol = None
         self.chessBoardFieldX = chessBoardField.row_index
         self.chessBoardFieldY = chessBoardField.col_index
+
+        self.isPawnMoved = None
+        if self.pieceType == PiecesTypesEnum.PAWN:
+           self.isPawnMoved = True
+
         self.drawPiece()
 
     def __str__(self):

@@ -1,14 +1,14 @@
 from utils.consts import *
 from Logic.ChessBoardField import ChessBoardField
 from Logic.Piece import Piece
-from utils.piecesTypesStartPosition import PIECES_START_POSITIONS
-from utils.PlayersEnum import PlayersEnum
 
 
 class ChessBoard:
     def __init__(self, board_start_x, board_start_y):
         self.boardFieldsMatrix = self.setBoard(board_start_x, board_start_y)
         self.setPiecesOnStartPosition()
+        self.boardPositionX = board_start_x
+        self.boardPositionY = board_start_y
 
     def setBoard(self, x, y):
         boardFieldsMatrix = []
@@ -44,13 +44,17 @@ class ChessBoard:
                     piece = Piece.createPieceObject(field)
                     field.piece = piece
 
-
-
     def getChessBoardFieldColor(self, col_index, row_index):
         if col_index & 1 == 0:
             return FIRST_FIELD_COLOR if row_index & 1 == 0 else SECOND_FIELD_COLOR
 
         return SECOND_FIELD_COLOR if row_index & 1 == 0 else FIRST_FIELD_COLOR
 
-    def setPiecesTypes(self):
-        pass
+    def getChessBoardField(self, board_row, board_col):
+        for cols in self.boardFieldsMatrix:
+            for chessBoardField in cols:
+                if chessBoardField.row_index == board_row and \
+                   chessBoardField.col_index == board_col:
+                    return chessBoardField
+
+        return False

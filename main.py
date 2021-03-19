@@ -6,6 +6,7 @@ import itertools
 
 from Draw.ChessBoardFrame import ChessBoardFrame
 from Logic.ChessBoard import ChessBoard
+from Draw.Mouse import Mouse
 from utils.consts import *
 
 
@@ -59,7 +60,6 @@ class ChessGame():
         self.chessBoard = ChessBoard(board_start_x=board_start_x, board_start_y=board_start_y)
 
 
-
     def run(self):
         """
         Główna pętla programu
@@ -72,8 +72,9 @@ class ChessGame():
                 # every list elem is chess board field
                 *list(itertools.chain.from_iterable(self.chessBoard.boardFieldsMatrix)),
                 *self.chessBoard.getPiecesOnBoardList(),
-
             )
+
+            Mouse.getFieldUnderMouse(chessBoard=self.chessBoard)
             self.fps_clock.tick(30)
 
 

@@ -14,7 +14,7 @@ class ChessBoardField(Drawable):
         self.piece = None
 
     def __str__(self):
-        isPieceOnFIeld = self.piece if self.piece else "Empty field"
-        str_ = f"{self.row_index}x{self.col_index} {isPieceOnFIeld} {self.piece}"
-        if isPieceOnFIeld:
-            str += f"{self.piece.pieceType}"
+        is_piece_on_field = False if not self.piece else self.piece
+        str_ = f"{self.row_index}x{self.col_index} {self.piece}"
+
+        return str_
